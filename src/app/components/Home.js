@@ -3,9 +3,11 @@ import jax from "../assets/jax.jpg";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Project from "./Project.js";
+import { transform } from "next/dist/build/swc";
 export default function Home({ pageState }) {
 
     const [textHeight, setTextHeight] = useState(0);
+    const [image, setImage] = useState(jax);
     const textRef = useRef(null);
     const [scope, animate] = useAnimate();
     const [scope2, animate2] = useAnimate();
@@ -46,6 +48,7 @@ export default function Home({ pageState }) {
         hidden: { opacity: 0, x: -20 },
         visible: { opacity: 1, x: 0, transition: { duration: 0.5} },
         exit: { opacity: 0, x: -20, transition: { duration: 0.3} },
+        hover: {transform: "translateX(1vw)"}
     }
     
     useEffect(() => {
@@ -59,9 +62,6 @@ export default function Home({ pageState }) {
             animation();
             
         }
-        if (frameScope.current && innerFrameScope.current) {
-            
-        }
         
     }, [pageState]);
     const animation = async () => {
@@ -71,6 +71,13 @@ export default function Home({ pageState }) {
             ease: "easeOut",
             delay: 0.3,
         }
+        const frameOptions = {
+            duration: 0.5,
+            ease: "easeInOut",
+            delay: .3,
+        }
+        const currentBorderRadius = frameScope.current.style.borderRadius;
+        const currentOpacity = frameScope.current.style.opacity;
         if(pageState == "Projects") {
             animate(scope.current, {
                 height: [scope.current.clientHeight, "30vw"],
@@ -78,8 +85,19 @@ export default function Home({ pageState }) {
             animate2(scope2.current, {
                 height: [scope2.current.clientHeight, "30vw"],
             }, options);
-            // await new Promise(resolve => setTimeout(resolve, 400));
-            frameAnimation();
+            await new Promise(resolve => setTimeout(resolve, 200));
+            frameAnimate(frameScope.current, {
+                height: [frameScope.current.clientHeight, "30vw"],
+                width: [frameScope.current.clientWidth, "30vw"],
+                
+                borderRadius: [currentBorderRadius, "2vw"],
+            }, frameOptions);
+            innerFrameAnimate(innerFrameScope.current, {
+                height: [innerFrameScope.current.clientHeight, "30vw"],
+                width: [innerFrameScope.current.clientWidth, "30vw"],
+                
+                borderRadius: [currentBorderRadius , "2vw"],
+            }, frameOptions);
         } else {
             await new Promise(resolve => setTimeout(resolve, 100));
             animate(scope.current, {
@@ -88,46 +106,25 @@ export default function Home({ pageState }) {
             animate2(scope2.current, {
                 height: [scope2.current.clientHeight, "7vw"],
             }, options);
-            
-            frameAnimation();
-        }
-    }
-    
-    const frameAnimation = async () => {
-        const options = {
-            duration: 0.5,
-            ease: "easeOut",
-            delay: .3,
-        }
-        if (pageState == "Projects") { //to projects
-            frameAnimate(frameScope.current, {
-                height: [frameScope.current.clientHeight, "30vw"],
-                width: [frameScope.current.clientWidth, "30vw"],
-                borderRadius: ["17vw", "2vw"],
-            }, options);
-            innerFrameAnimate(innerFrameScope.current, {
-                height: [innerFrameScope.current.clientHeight, "30vw"],
-                width: [innerFrameScope.current.clientWidth, "30vw"],
-                borderRadius: ["17vw" , "2vw"],
-            }, options);
-        } else { //exit projects
-            
+            await new Promise(resolve => setTimeout(resolve, 200));
             frameAnimate(frameScope.current, {
                 height: [frameScope.current.clientHeight, "25vw"],
                 width: [frameScope.current.clientWidth, "25vw"],
-                borderRadius: ["2vw", "17vw"],
-            }, options);
+                borderRadius: [currentBorderRadius, "17vw"],
+            }, frameOptions);
             innerFrameAnimate(innerFrameScope.current, {
                 height: [innerFrameScope.current.clientHeight, "25vw"],
                 width: [innerFrameScope.current.clientWidth, "25vw"],
-                borderRadius: ["2vw", "17vw"],
-            }, options);
+                borderRadius: [currentBorderRadius, "17vw"],
+            }, frameOptions);
         }
     }
+    
+
     return (
         <div className=" fixed ml-[10vw] h-[75%] w-[65vw] flex items-center justify-between ">
             
-            <Frame pageState={pageState} frameScope={frameScope} innerFrameScope={innerFrameScope} />
+            <Frame pageState={pageState} frameScope={frameScope} innerFrameScope={innerFrameScope} image={image} />
             <div ref={scope} className="flex w-[30vw] " style={{ height: "7vw" }}>
                 <div ref={scope2} className="absolute border-r-2 border-[#413C34]  w-[30vw] z-20 right-[31vw] h-[7vw] " style={{transformOrigin: "bottom"}}></div>
 
@@ -163,7 +160,7 @@ export default function Home({ pageState }) {
                         key="projects"
                         variants={staggerContainer2}
                     >
-                        <motion.div variants={fadeFromLeft} >
+                        <motion.div variants={fadeFromLeft} whileHover="hover" >
                             <Project title="Project 1" description="This is a description of project 1. I want the desciprtion of this project to be really cool and rad so that people like it" />
                         </motion.div >
                         <motion.div variants={fadeFromLeft}>
@@ -192,13 +189,14 @@ export default function Home({ pageState }) {
 }
 
 
-const Frame = ({pageState, frameScope, innerFrameScope}) => {
+const Frame = ({pageState, frameScope, innerFrameScope, image}) => {
     
     
     return (
         <>
-            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw] bg-blue-100 rounded-full ">
-                <Image ref={innerFrameScope} src={jax} className="h-[25vw] w-[25vw] bg-blue-100 rounded-full object-cover " />
+            {/* can prolly deelete this later */}
+            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  bg-blue-100 rounded-full "> 
+                <Image ref={innerFrameScope} src={image} className="h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
             </div>
             <div className="absolute z-[25] h-[35vw] w-[35vw] translate-y-[-14vw] translate-x-[-4vw] bg-[#F5F5F5]  "></div>
             {/* <div className="absolute z-[25] h-[40vw] w-[30vw] translate-y-[-4vw] translate-x-[-3.0vw] bg-[#F5F5F5]  rotate-45   "></div> */}
