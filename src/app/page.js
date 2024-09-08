@@ -1,11 +1,18 @@
+"use client";
 import Image from "next/image";
 
-export default function Home() {
+import { AnimatePresence, motion } from "framer-motion";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import { useState } from "react";
+
+export default function Landing() {
+  const [pageState, setPageState] = useState("");
+  
   return (
     <>
-    <div className="fixed ml-[5vw] h-[70%] w-[95vw] flex items-center ">
-      <Frame />
-    </div>
+    <Header pageState={pageState} setPageState={setPageState}/>
+    <Home pageState={pageState}/>
       
     </>
     
@@ -13,12 +20,4 @@ export default function Home() {
   );
 }
 
-const Frame = () => {
-  return (
-    <>
-      <div className="h-[25vw] w-[25vw] bg-blue-100 rounded-full ">
-        {/* <Image src="/images/IMG_20210725_142013.jpg" layout="fill" objectFit="cover" className="rounded-full" /> */}
-      </div>
-    </>
-  );
-}
+

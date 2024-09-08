@@ -8,74 +8,92 @@ const links = [
   { title: "Projects", color: "#e74c3c" },
   { title: "Experience", color: "#2ecc71" },
 ]
-export default function Header() {
-  const [pageState, setPageState] = useState("");
+export default function Header({pageState, setPageState}) {
+  
   const [text, setText] = useState("");
   const[dummyText, setDummyText] = useState("");
   const textRef = useRef(null);
   const [textHeight, setTextHeight] = useState(0);
-
+  const [textWidth, setTextWidth] = useState(0);
   const [scope, animate] = useAnimate();
   useEffect(() => {
     if (textRef.current) {
       setTextHeight(textRef.current.clientHeight);
+      setTextWidth(textRef.current.clientWidth);
     }
 
   }, []);
-
+  const fadeFromLeft = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 0.6 } },
+    exit: { opacity: 0, x: -20, transition: { duration: 0.3 } },
+  }
   useEffect(() => {
-    if (textHeight > 0)
+    if (textHeight > 0 && scope.current)
       animation();
   }, [pageState]);
   const animation = async () => {
     const options = {
-      duration: 0.5,
-      ease: "easeInOut",
-
+      duration: 0.3,
+      ease: "easeOut",
+      delay: .3,
     }
-
+    const options2 = {
+      duration: 0.3,
+      ease: "easeOut",
+      delay: 0,
+    }
     await animate(scope.current, {
-      y: [textHeight, 0],
+      x: [0,  - 20],
+      opacity: [1, 0], 
     }, options);
-    setDummyText(pageState);
-    await new Promise(resolve => setTimeout(resolve, 300)); 
     setText(pageState);
-    
+    await new Promise(resolve => setTimeout(resolve, 100));
     await animate(scope.current, {
-      y: [0, textHeight],
+      x: [ - 20, 0],
+      opacity: [0, 1],
+    }, options2);
+    // await animate(scope.current, {
+    //   x: [0, -textWidth - 20],
+    // }, options);
+    // setText(pageState);
+    
+    // await new Promise(resolve => setTimeout(resolve, 300)); 
+    
+    
+    // await animate(scope.current, {
+    //   x: [-textWidth - 20, 0],
 
-    }, options);
-    console.log("test");
+    // }, options);
+    // console.log("test");
   }
+  const initialAnimation = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+  };
 
 
   return (
     <div className="flex justify-between items-center w-[90vw] ml-[5vw] mt-[5vh]">
 
-      <div className="w-fit " ref={textRef}>
-        <h1 className="font-serif text-[5vw] text-[#413C34] m-0 p-0 inline-block align-bottom leading-none">{text == "" ? "Nicholas Suh" : text}</h1>
+      <motion.div className="relative z-10 w-fit " ref={scope} initial="hidden" animate="visible" variants={fadeFromLeft}>
+        <h1 ref={textRef} className=" font-serif text-[5vw] text-[#413C34] m-0 p-0 inline-block align-bottom leading-none right-0" >{text == "" ? "Nicholas Suh" : text}</h1>
+      </motion.div>
+      <div className=" absolute z-20 w-[5vw] ml-[-6vw] border-r-2 border-[#413C34] h-[5vw] bg-[#F5F5F5]" >
+    
 
       </div>
-      {textHeight > 0 && <motion.div ref={scope}
-
-        initial={{ y: textHeight }}
-        className="bg-[#F5F5F5] absolute w-fit" style={{ y: textHeight }} 
-        layout>
-        <hr className="border-1 h-[3px] bg-[#413C34] m-0 p-0"></hr>
-        <h1 className="font-serif text-[5vw]  text-[#F5F5F5] m-0 p-0 inline-block align-bottom leading-none">{dummyText == "" ? "Nicholas Suh" : dummyText}</h1>
-
-      </motion.div>}
 
 
       <nav className="flex w-fit space-x-[1vw] text-[1.5vw] text-[#413C34]">
         {links.map(({ title, color }, i) => (
           <div>
-            <Link
+            <div
               key={i}
-              href={`/${title.toLowerCase()}`}
+              // href={`/${title.toLowerCase()}`}
               onClick={() => setPageState(title)}
-              className="font-serif"
-            >{title == "" ? "Home" : title} </Link>
+              className="font-serif cursor-pointer"
+            >{title == "" ? "Home" : title} </div>
             {title === pageState ? (
               <motion.div layoutId="underline"><hr className="border-1 h-[3px] bg-[#413C34] m-0 p-0 bottom-[1vh]"></hr> </motion.div>
             ) : null}
