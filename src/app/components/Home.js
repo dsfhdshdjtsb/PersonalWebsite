@@ -259,7 +259,7 @@ export default function Home({ pageState }) {
                             />
                         </motion.div>
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(GTReviews.src)} className=" cursor-pointer">
-                            <Project title="GT Reviews" description="GT Reviews is a full stack web app that allows Georgia Tech students to review classes, professors, dining halls, and residence halls. GT Reviews was made for GT Web Dev, and features React, Firebase, and a Rust-built web scrape.r" link="https://buzzwalk.github.io/reviews/"
+                            <Project title="GT Reviews" description="GT Reviews is a full stack web app that allows Georgia Tech students to review classes, professors, dining halls, and residence halls. GT Reviews was made for GT Web Dev, and features React, Firebase, and a Rust-built web scraper." link="https://buzzwalk.github.io/reviews/"
                             dates="September - December 2023" technologies="React, Chakra UI, Node.js, Firebase, Rust, " role="Project Manager"
                             />
                         </motion.div>
