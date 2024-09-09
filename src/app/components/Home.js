@@ -254,7 +254,7 @@ export default function Home({ pageState }) {
                             />
                         </motion.div >
                         <motion.div variants={fadeFromLeft}  onMouseEnter={() => handleMouseEnter(DDV.src)} className=" cursor-pointer">
-                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a platformer with a circular twist. By community vote, DDV placed 8th out of 77 projects, and 3rd in game design. DDV was built with Rust and the Bevy game engine, and will (hopefully) be on Steam soon." link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"
+                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a platformer with a circular twist. By community vote, DDV placed 8th out of 77 entries, 3rd in game design. DDV was built with Rust and the Bevy game engine, and will (hopefully) be on Steam soon." link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"
                             dates="August 2024 - Present" technologies="Rust, Bevy" role="Programmer, Artist"
                             />
                         </motion.div>
