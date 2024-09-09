@@ -3,7 +3,7 @@ export default function Project({title, description , link, dates, technologies,
   return (
     <>
     
-    <motion.div whileHover={{transform: "translateX(2vw)", transition: {duration: .2}}} className="mt-[-1.5vw] relative  ">
+    <motion.div whileHover={{transform: "translateX(1vw)", transition: {duration: .2}}} className="mt-[-1.5vw] relative  ">
       <a href={link}>
         <div className=" text-[#413C34]   h-[7w] w-[42vw] p-[1vw] relative left-[-3vw]" style={{direction: "ltr"}}>
           
