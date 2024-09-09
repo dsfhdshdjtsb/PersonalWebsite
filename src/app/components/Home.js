@@ -82,8 +82,7 @@ export default function Home({ pageState }) {
             projectImageAnimation();
         }
     },[newImage]);
-    console.log( newImage.src);
-    console.log(image.src);
+
     const projectImageAnimation = async () => {
         const options = {
             duration: 0.2,
@@ -112,7 +111,11 @@ export default function Home({ pageState }) {
             ease: "easeInOut",
             delay: .3,
         }
-        const currentBorderRadius = frameScope.current.style.borderRadius;
+        var currentBorderRadius = "vw";
+        if (frameScope) {
+            currentBorderRadius = frameScope.current.style.borderRadius;
+            console.log(currentBorderRadius);
+        }
         const currentOpacity = frameScope.current.style.opacity;
         if(pageState == "Projects") {
             animate(scope.current, {
@@ -167,10 +170,7 @@ export default function Home({ pageState }) {
         
         
     }
-    useEffect(() => {
-        console.log(transitioning);
-    }
-    , [transitioning]);
+    
     
 
     return (
