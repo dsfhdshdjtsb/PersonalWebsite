@@ -16,6 +16,7 @@ import ND from "../assets/ND.gif";
 import GTReviews from "../assets/GTReviews.png";
 import Roadcode from "../assets/Roadcode.png";
 import Therapal from "../assets/Therapal.jpg";
+import Resume from "../assets/Nicholas_Suh_Resume.pdf";
 export default function Home({ pageState }) {
 
     const [image, setImage] = useState(jax.src);
@@ -248,22 +249,22 @@ export default function Home({ pageState }) {
                         variants={staggerContainer2}
                     >
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(CE.src)} className=" cursor-pointer " >
-                            <Project title="Combat Enchantments" description="Combat Enchantments is a Minecraft Mod that adds various enchantments. Made with Java and the Fabric Modloader, Combat Enchantments has garnered over 250k downloads, and has been featured in various youtube videos" link="https://www.curseforge.com/minecraft/mc-mods/combat-enchantments"
+                            <Project title="Combat Enchantments" description="Combat Enchantments is a Minecraft Mod that adds various enchantments. Made with Java and the Fabric Modloader, Combat Enchantments has garnered over 250k downloads, and has been featured in various Youtube videos." link="https://www.curseforge.com/minecraft/mc-mods/combat-enchantments"
                             dates="August 2021 - Present" technologies="Java, Gradle, Fabric" role="Creator"
                             />
                         </motion.div >
                         <motion.div variants={fadeFromLeft}  onMouseEnter={() => handleMouseEnter(DDV.src)} className=" cursor-pointer">
-                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a platformer with a circular twist. By community vote, DDV placed 8th out of 77 projects, and 3rd in game design. DDV was built with Rust and the Bevy game engine, and will (hopefully) be on steam soon" link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"
+                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a platformer with a circular twist. By community vote, DDV placed 8th out of 77 projects, and 3rd in game design. DDV was built with Rust and the Bevy game engine, and will (hopefully) be on Steam soon." link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"
                             dates="August 2024 - Present" technologies="Rust, Bevy" role="Programmer, Artist"
                             />
                         </motion.div>
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(GTReviews.src)} className=" cursor-pointer">
-                            <Project title="GT Reviews" description="GT Reviews is a full stack web app that allows Georgia Tech students to review classes, professors, dining halls, and residence halls. GT Reviews was made for GT Web Dev, and features react, firebase, and a rust-built web scraper" link="https://buzzwalk.github.io/reviews/"
+                            <Project title="GT Reviews" description="GT Reviews is a full stack web app that allows Georgia Tech students to review classes, professors, dining halls, and residence halls. GT Reviews was made for GT Web Dev, and features React, Firebase, and a Rust-built web scrape.r" link="https://buzzwalk.github.io/reviews/"
                             dates="September - December 2023" technologies="React, Chakra UI, Node.js, Firebase, Rust, " role="Project Manager"
                             />
                         </motion.div>
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(ND.src)} className=" cursor-pointer">
-                            <Project title="Notedrop" description="Notedrop allows users to place pegs and balls on a pachinko board, and listen to the sounds as the balls hit the pegs. Notedrop won Digital Track 1st Place at Horizons 2024, and was built with Rust and Bevy." link="https://devpost.com/software/note-drop"
+                            <Project title="Notedrop" description="Notedrop allows users to place pegs and balls on a Pachinko-style board, and listen to the sounds as the balls hit the pegs. Notedrop won Digital Track 1st Place at Horizons 2024, and was built with Rust and Bevy." link="https://devpost.com/software/note-drop"
                             dates="March 2024" technologies="Rust, Bevy" role="Programmer"
                             />
                         </motion.div>
@@ -297,7 +298,7 @@ export default function Home({ pageState }) {
                         variants={staggerContainer}>
 
                         <motion.div variants={fadeFromLeft}>
-                            <h1 className="text-[2.5vw] font-serif"> View my <a href="" className=" underline">resume</a> or contact me at: </h1>
+                            <h1 className="text-[2.5vw] font-serif"> View my <a href={Resume} className=" underline">resume</a> or contact me at: </h1>
                         </motion.div >
                         <motion.div variants={fadeFromLeft}>
                             <div className="flex items-center space-x-[1vw] ml-[0.3vw]">
