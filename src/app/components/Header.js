@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 const links = [
   { title: "", color: "#3498db" },
   { title: "Projects", color: "#e74c3c" },
-  { title: "Experience", color: "#2ecc71" },
+  { title: "Contact", color: "#2ecc71" },
 ]
 export default function Header({pageState, setPageState}) {
   
@@ -67,10 +67,7 @@ export default function Header({pageState, setPageState}) {
     // }, options);
     // console.log("test");
   }
-  const initialAnimation = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
-  };
+  
 
 
   return (

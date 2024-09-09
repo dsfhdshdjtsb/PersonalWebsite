@@ -1,18 +1,28 @@
 import { motion, AnimatePresence, stagger, useAnimate } from "framer-motion";
-import jax from "../assets/jax.jpg";
+import jax from "../assets/jax2.jpg";
+import Trollface from "../assets/Trollface.png";
+import linkedin from "../assets/linkedin.png";
+import email from "../assets/email.png";
+import instagram from "../assets/instagram.png";
+import discord from "../assets/discord.png";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Project from "./Project.js";
-import { transform } from "next/dist/build/swc";
+import github from "../assets/github.png";
+
 export default function Home({ pageState }) {
 
-    const [textHeight, setTextHeight] = useState(0);
+
+    const [transitioning, setTransitioning] = useState(false);
     const [image, setImage] = useState(jax);
+    const [newImage, setNewImage] = useState(jax);
+    
     const textRef = useRef(null);
     const [scope, animate] = useAnimate();
     const [scope2, animate2] = useAnimate();
     const [frameScope, frameAnimate] = useAnimate();
     const [innerFrameScope, innerFrameAnimate] = useAnimate();
+    
     const staggerContainer = {
         hidden: { opacity: 1 },
         visible: {
@@ -48,7 +58,7 @@ export default function Home({ pageState }) {
         hidden: { opacity: 0, x: -20 },
         visible: { opacity: 1, x: 0, transition: { duration: 0.5} },
         exit: { opacity: 0, x: -20, transition: { duration: 0.3} },
-        hover: {transform: "translateX(1vw)"}
+        hover: {transform: "translateX(1vw)", transition: {duration: 0.2}},
     }
     
     useEffect(() => {
@@ -57,14 +67,40 @@ export default function Home({ pageState }) {
         }
     }, []);
     useEffect(() => {
+        setNewImage(jax);
         if (scope.current)
         {
+            
             animation();
             
         }
         
     }, [pageState]);
+    useEffect(() => {
+        
+        if(innerFrameScope.current) {
+            projectImageAnimation();
+        }
+    },[newImage]);
+    console.log( newImage.src);
+    console.log(image.src);
+    const projectImageAnimation = async () => {
+        const options = {
+            duration: 0.2,
+            ease: "easeOut",
+            
+        }
+
+        await innerFrameAnimate(innerFrameScope.current, {
+            opacity: [1, 0],
+        }, options);
+        setImage(newImage);
+        innerFrameAnimate(innerFrameScope.current, {
+            opacity: [0, 1],
+        }, options);
+    }
     const animation = async () => {
+        
         
         const options = {
             duration: 0.3,
@@ -99,13 +135,22 @@ export default function Home({ pageState }) {
                 borderRadius: [currentBorderRadius , "2vw"],
             }, frameOptions);
         } else {
-            await new Promise(resolve => setTimeout(resolve, 100));
-            animate(scope.current, {
-                height: [scope.current.clientHeight, "7vw"],
-            }, options);
-            animate2(scope2.current, {
-                height: [scope2.current.clientHeight, "7vw"],
-            }, options);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            if(pageState == "") {
+                animate(scope.current, {
+                    height: [scope.current.clientHeight, "7vw"],
+                }, options);
+                animate2(scope2.current, {
+                    height: [scope2.current.clientHeight, "7vw"],
+                }, options);
+            } else {
+                animate(scope.current, {
+                    height: [scope.current.clientHeight, "10vw"],
+                }, options);
+                animate2(scope2.current, {
+                    height: [scope2.current.clientHeight, "10vw"],
+                }, options);
+            }
             await new Promise(resolve => setTimeout(resolve, 200));
             frameAnimate(frameScope.current, {
                 height: [frameScope.current.clientHeight, "25vw"],
@@ -118,14 +163,27 @@ export default function Home({ pageState }) {
                 borderRadius: [currentBorderRadius, "17vw"],
             }, frameOptions);
         }
+        
+        
+        
     }
+    useEffect(() => {
+        console.log(transitioning);
+    }
+    , [transitioning]);
     
 
     return (
         <div className=" fixed ml-[10vw] h-[75%] w-[65vw] flex items-center justify-between ">
             
-            <Frame pageState={pageState} frameScope={frameScope} innerFrameScope={innerFrameScope} image={image} />
-            <div ref={scope} className="flex w-[30vw] " style={{ height: "7vw" }}>
+            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  bg-blue-100 rounded-full "> 
+                <AnimatePresence >
+                    <motion.img alt="image" priority key={1} ref={innerFrameScope} src={image.src} layout className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
+
+                </AnimatePresence>
+
+            </div>
+            <div className="absolute z-[25] h-[35vw] w-[35vw] translate-y-[-14vw] translate-x-[-4vw] bg-[#F5F5F5]  "></div><div ref={scope} className="flex w-[30vw] " style={{ height: "7vw" }}>
                 <div ref={scope2} className="absolute border-r-2 border-[#413C34]  w-[30vw] z-20 right-[31vw] h-[7vw] " style={{transformOrigin: "bottom"}}></div>
 
                 <AnimatePresence mode="wait">
@@ -142,7 +200,7 @@ export default function Home({ pageState }) {
                             Hi, I'm Nick Suh, a 2nd year CS major at Georgia Tech. I
                         </motion.p>
                         <motion.p variants={fadeFromLeft}>
-                            am interested in sex machine, league of legends, and
+                            am interested in VALORANT, league of legends, and
                         </motion.p>
                         <motion.p variants={fadeFromLeft}>
                             trolling on internet forums.
@@ -160,23 +218,65 @@ export default function Home({ pageState }) {
                         key="projects"
                         variants={staggerContainer2}
                     >
-                        <motion.div variants={fadeFromLeft} whileHover="hover" >
-                            <Project title="Project 1" description="This is a description of project 1. I want the desciprtion of this project to be really cool and rad so that people like it" />
+                        <motion.div variants={fadeFromLeft} onMouseEnter={()=> setNewImage(Trollface)} onMouseLeave={() => setNewImage(jax)} className=" cursor-pointer " >
+                            <Project title="Combat Enchantments" description="Combat Enchantments is a Minecraft Mod that adds various enchantments. Made with Java and the fabric Modloader, Combat Enchantments has garnered over 250k downloads" link="https://www.curseforge.com/minecraft/mc-mods/combat-enchantments"/>
                         </motion.div >
-                        <motion.div variants={fadeFromLeft}>
-                            <Project title="Project 2" description="This is a description of project 2" />
+                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
+                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a scrolling, circular platformer game. DDV was made with Rust and the Bevy Game Engine" link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"/>
                         </motion.div>
-                        <motion.div variants={fadeFromLeft}>
-                            <Project title="Project 3" description="This is a description of project 3" />
+                        <motion.div variants={fadeFromLeft} className=" cursor-pointer">
+                            <Project title="GT Reviews" description="This is a description of project 3. I want the desciprtion of this project to be really cool and rad so that people like it" link="https://buzzwalk.github.io/reviews/"/>
                         </motion.div>
-                        <motion.div variants={fadeFromLeft}>
-                            <Project title="Project 4" description="This is a description of project 3" />
+                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
+                            <Project title="Roadcode" description="Roadcode is a vacation planning web app that algorithmically generates a roadtrip with points of interest along the way. Roadcode took 1st place at Freyhacks 2022, out of 500 people" link="https://www.google.com"/>
                         </motion.div>
-                        <motion.div variants={fadeFromLeft}>
-                            <Project title="Project 5" description="This is a description of project 3" />
+                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
+                            <Project title="Armor Abilities" description="Armor abilities is another Minecraft Mod I made to add activatable abilities to the game, such as dashes and teleports. Armor Abilities was made for both Fabric and Forge" link="https://www.curseforge.com/minecraft/mc-mods/armor-abilities"/>
                         </motion.div>
+                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
+                            <Project title="Therapal" description="Therapal is an omegle-style web app with AI that links together people who struggle with mental disorders. Therapal took 1st place at Hack United 2023, out of 400 people " link="https://www.google.com"/>
+                        </motion.div>
+                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
+                            <Project title="Altarune" description="Altarune is a roguelike tower defense game featuring pixelated 3D graphics. Altarune is currently in development as part of the VGDev club at Georgia Tech" link="https://www.google.com"/>
+                        </motion.div>
+                        
                        </motion.div>)}
 
+                </AnimatePresence>
+                <AnimatePresence>
+                    {pageState == "Contact" && (<motion.div
+                        className="absolute w-[40vw] h-[13vw]  flex-col items-center "
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit" // Add exit variant here
+                        key="contact"
+                        variants={staggerContainer}>
+
+                        <motion.div variants={fadeFromLeft}>
+                            <h1 className="text-[2.5vw] font-serif"> View my <a href="" className=" underline">resume</a> or contact me at: </h1>
+                        </motion.div >
+                        <motion.div variants={fadeFromLeft}>
+                            <div className="flex items-center space-x-[1vw] ml-[-0.5vw]">
+                                <motion.a className="w-[4vw] h-[4vw] opacity-30 cursor-pointer" href="https://github.com/dsfhdshdjtsb"  whileHover={{ opacity: 1 }}> 
+                                    <Image alt="icon" className=" w-[100%] h-[100%] object-cover" src={github}></Image>
+                                </motion.a>
+                                <motion.a className="w-[5vw] h-[5vw] opacity-30 cursor-pointer" href="https://www.linkedin.com/in/nsuh"  whileHover={{ opacity: 1 }}> 
+                                    <Image  alt="icon" className=" w-[100%] h-[100%] object-cover" src={linkedin}></Image>
+                                </motion.a>
+                                <motion.a className="w-[5vw] h-[5vw] opacity-30 cursor-pointer " href="mailto:nicksuh@gatech.edu"  whileHover={{ opacity: 1 }}> 
+                                    <Image  alt="icon" className=" w-[100%] h-[100%] object-cover" src={email}></Image>
+                                </motion.a>
+                                <motion.a className="w-[5vw] h-[5vw] opacity-30 cursor-pointer" href="http://discordapp.com/users/395005138000936960"  whileHover={{ opacity: 1 }}> 
+                                    <Image alt="icon"  className=" w-[100%] h-[100%] object-cover" src={discord}></Image>
+                                </motion.a>
+                                <motion.a className="w-[4.5vw] h-[4.5vw] opacity-30 cursor-pointer" href="https://www.instagram.com/nick_suh/"  whileHover={{ opacity: 1 }}> 
+                                    <Image  alt="icon" className=" w-[100%] h-[100%] object-cover" src={instagram}></Image>
+                                </motion.a>
+                            </div>
+                        </motion.div>
+
+                            
+                        </motion.div>)}
                 </AnimatePresence>
 
 
@@ -196,7 +296,9 @@ const Frame = ({pageState, frameScope, innerFrameScope, image}) => {
         <>
             {/* can prolly deelete this later */}
             <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  bg-blue-100 rounded-full "> 
-                <Image ref={innerFrameScope} src={image} className="h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
+                <Image ref={innerFrameScope} src={image} className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
+                <Image ref={innerFrameScope} src={image} className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
+
             </div>
             <div className="absolute z-[25] h-[35vw] w-[35vw] translate-y-[-14vw] translate-x-[-4vw] bg-[#F5F5F5]  "></div>
             {/* <div className="absolute z-[25] h-[40vw] w-[30vw] translate-y-[-4vw] translate-x-[-3.0vw] bg-[#F5F5F5]  rotate-45   "></div> */}
