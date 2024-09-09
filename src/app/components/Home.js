@@ -11,6 +11,11 @@ import Project from "./Project.js";
 import github from "../assets/github.png";
 import AA from "../assets/AA.gif";
 import CE from "../assets/CE.gif";
+import DDV from "../assets/DDV.gif";
+import ND from "../assets/ND.gif";
+import GTReviews from "../assets/GTReviews.png";
+import Roadcode from "../assets/Roadcode.png";
+import Therapal from "../assets/Therapal.jpg";
 export default function Home({ pageState }) {
 
     const [image, setImage] = useState(jax.src);
@@ -197,7 +202,7 @@ export default function Home({ pageState }) {
     return (
         <div className=" fixed ml-[10vw] h-[75%] w-[65vw] flex items-center justify-between ">
             
-            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  rounded-full "> 
+            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw] bg-black rounded-full "> 
                 <AnimatePresence >
                     <motion.div ref={imageContainerScope}>
                         <motion.img alt="image" priority key={1} ref={innerFrameScope} src={image} layout className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
@@ -224,16 +229,16 @@ export default function Home({ pageState }) {
                             Hi, I'm Nick Suh, a 2nd year CS major at Georgia Tech. I
                         </motion.p>
                         <motion.p variants={fadeFromLeft}>
-                            am interested in VALORANT, league of legends, and
+                            am interested in game development, web development,
                         </motion.p>
                         <motion.p variants={fadeFromLeft}>
-                            trolling on internet forums.
+                            and digital artistry.
                         </motion.p>
                     </motion.div>)}
                 </AnimatePresence>
                 <AnimatePresence mode="wait">
                     {pageState=="Projects" && (<motion.div
-                        className="absolute w-[40vw] text-[1.5vw] overflow-auto h-[30vw] scroll no-scrollbar"
+                        className="absolute w-[44vw] text-[1.5vw] overflow-auto h-[30vw] scroll no-scrollbar "
                         
                         style={{ direction: "rtl" }}
                         initial="hidden"
@@ -243,25 +248,40 @@ export default function Home({ pageState }) {
                         variants={staggerContainer2}
                     >
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(CE.src)} className=" cursor-pointer " >
-                            <Project title="Combat Enchantments" description="Combat Enchantments is a Minecraft Mod that adds various enchantments. Made with Java and the fabric Modloader, Combat Enchantments has garnered over 250k downloads" link="https://www.curseforge.com/minecraft/mc-mods/combat-enchantments"/>
+                            <Project title="Combat Enchantments" description="Combat Enchantments is a Minecraft Mod that adds various enchantments. Made with Java and the Fabric Modloader, Combat Enchantments has garnered over 250k downloads, and has been featured in various youtube videos" link="https://www.curseforge.com/minecraft/mc-mods/combat-enchantments"
+                            dates="August 2021 - Present" technologies="Java, Gradle, Fabric" role="Creator"
+                            />
                         </motion.div >
-                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
-                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a scrolling, circular platformer game. DDV was made with Rust and the Bevy Game Engine" link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"/>
+                        <motion.div variants={fadeFromLeft}  onMouseEnter={() => handleMouseEnter(DDV.src)} className=" cursor-pointer">
+                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a platformer with a circular twist. By community vote, DDV placed 8th out of 77 projects, and 3rd in game design. DDV was built with Rust and the Bevy game engine, and will (hopefully) be on steam soon" link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"
+                            dates="August 2024 - Present" technologies="Rust, Bevy" role="Programmer, Artist"
+                            />
                         </motion.div>
-                        <motion.div variants={fadeFromLeft} className=" cursor-pointer">
-                            <Project title="GT Reviews" description="This is a description of project 3. I want the desciprtion of this project to be really cool and rad so that people like it" link="https://buzzwalk.github.io/reviews/"/>
+                        <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(GTReviews.src)} className=" cursor-pointer">
+                            <Project title="GT Reviews" description="GT Reviews is a full stack web app that allows Georgia Tech students to review classes, professors, dining halls, and residence halls. GT Reviews was made for GT Web Dev, and features react, firebase, and a rust-built web scraper" link="https://buzzwalk.github.io/reviews/"
+                            dates="September - December 2023" technologies="React, Chakra UI, Node.js, Firebase, Rust, " role="Project Manager"
+                            />
                         </motion.div>
-                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
-                            <Project title="Roadcode" description="Roadcode is a vacation planning web app that algorithmically generates a roadtrip with points of interest along the way. Roadcode took 1st place at Freyhacks 2022, out of 500 people" link="https://www.google.com"/>
+                        <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(ND.src)} className=" cursor-pointer">
+                            <Project title="Notedrop" description="Notedrop allows users to place pegs and balls on a pachinko board, and listen to the sounds as the balls hit the pegs. Notedrop won Digital Track 1st Place at Horizons 2024, and was built with Rust and Bevy." link="https://devpost.com/software/note-drop"
+                            dates="March 2024" technologies="Rust, Bevy" role="Programmer"
+                            />
+                        </motion.div>
+                        <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(Roadcode.src)} className=" cursor-pointer">
+                            <Project title="Roadcode" description="Roadcode is a vacation planning web app that algorithmically generates a roadtrip with points of interest along the way. Roadcode took best overall out of 500 people at Freyhacks, an MLH season 2022 hackathon." 
+                            link="https://devpost.com/software/road-code"
+                            dates="June 2022" technologies="Javascript, Node.js, OpenTripMap, Google Maps"
+                            />
                         </motion.div>
                         <motion.div variants={fadeFromLeft}  onMouseEnter={() => handleMouseEnter(AA.src)} className=" cursor-pointer">
-                            <Project title="Armor Abilities" description="Armor abilities is another Minecraft Mod I made to add activatable abilities to the game, such as dashes and teleports. Armor Abilities was made for both Fabric and Forge" link="https://www.curseforge.com/minecraft/mc-mods/armor-abilities"/>
+                            <Project title="Armor Abilities" description="Armor abilities is another Minecraft Mod I made to add activatable abilities to the game, including dashes, teleports, and transforming into anvils. Armor Abilities was made for both Fabric and Forge, and has around 10k downloads" link="https://www.curseforge.com/minecraft/mc-mods/armor-abilities"
+                            dates="June 2023" technologies="Java, Gradle, Fabric, Forge" role="Creator"
+                            />
                         </motion.div>
-                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
-                            <Project title="Therapal" description="Therapal is an omegle-style web app with AI that links together people who struggle with mental disorders. Therapal took 1st place at Hack United 2023, out of 400 people " link="https://www.google.com"/>
-                        </motion.div>
-                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
-                            <Project title="Altarune" description="Altarune is a roguelike tower defense game featuring pixelated 3D graphics. Altarune is currently in development as part of the VGDev club at Georgia Tech" link="https://www.google.com"/>
+                        <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(Therapal.src)} className=" cursor-pointer">
+                            <Project title="Therapal" description="Therapal is an omegle-style web app with AI that links together people who struggle with mental disorders. Powered by GPT-3.5, Therapal took 1st place at Hack United 2023, out of 400 people. " link="https://devpost.com/software/note-drop"
+                            dates="August 2023" technologies="React, Material UI, GPT-3.5, Firebase, Node.js " role="Programmer"
+                            />
                         </motion.div>
                         
                        </motion.div>)}
@@ -280,7 +300,7 @@ export default function Home({ pageState }) {
                             <h1 className="text-[2.5vw] font-serif"> View my <a href="" className=" underline">resume</a> or contact me at: </h1>
                         </motion.div >
                         <motion.div variants={fadeFromLeft}>
-                            <div className="flex items-center space-x-[1vw] ml-[-0.5vw]">
+                            <div className="flex items-center space-x-[1vw] ml-[0.3vw]">
                                 <motion.a className="w-[4vw] h-[4vw] opacity-30 cursor-pointer" href="https://github.com/dsfhdshdjtsb"  whileHover={{ opacity: 1 }}> 
                                     <Image alt="icon" className=" w-[100%] h-[100%] object-cover" src={github}></Image>
                                 </motion.a>
