@@ -9,13 +9,13 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Project from "./Project.js";
 import github from "../assets/github.png";
-
+import AA from "../assets/AA.gif";
+import CE from "../assets/CE.gif";
 export default function Home({ pageState }) {
 
-
+    const [image, setImage] = useState(jax.src);
+    const [imageContainerScope, imageContainerAnimate] = useAnimate();
     const [transitioning, setTransitioning] = useState(false);
-    const [image, setImage] = useState(jax);
-    const [newImage, setNewImage] = useState(jax);
     
     const textRef = useRef(null);
     const [scope, animate] = useAnimate();
@@ -60,6 +60,46 @@ export default function Home({ pageState }) {
         exit: { opacity: 0, x: -20, transition: { duration: 0.3} },
         hover: {transform: "translateX(1vw)", transition: {duration: 0.2}},
     }
+
+    const handleMouseEnter = async (imagesrc) => {
+        console.log(imagesrc);
+        if(imagesrc == image)
+            return;
+        await imageContainerAnimate(imageContainerScope.current, {
+            opacity: [1, 0],
+        }, {
+            duration: 0.3,
+            ease: "easeOut",
+            delay: 0,
+        });
+        await setImage(imagesrc);
+        await imageContainerAnimate(imageContainerScope.current, {
+            opacity: [0, 1],
+        }, {
+            duration: 0.3,
+            ease: "easeOut",
+            delay: 0,
+        });
+    }
+    const handleMouseLeave = async () => {
+        if(image == jax.src)
+            return;
+        await imageContainerAnimate(imageContainerScope.current, {
+            opacity: [1, 0],
+        }, {
+            duration: 0.3,
+            ease: "easeOut",
+            delay: 0,
+        });
+        setImage(jax.src);
+        await imageContainerAnimate(imageContainerScope.current, {
+            opacity: [0, 1],
+        }, {
+            duration: 0.3,
+            ease: "easeOut",
+            delay: 0,
+        });
+    }
     
     useEffect(() => {
         if (textRef.current) {
@@ -67,7 +107,6 @@ export default function Home({ pageState }) {
         }
     }, []);
     useEffect(() => {
-        setNewImage(jax);
         if (scope.current)
         {
             
@@ -76,28 +115,8 @@ export default function Home({ pageState }) {
         }
         
     }, [pageState]);
-    useEffect(() => {
-        
-        if(innerFrameScope.current) {
-            projectImageAnimation();
-        }
-    },[newImage]);
 
-    const projectImageAnimation = async () => {
-        const options = {
-            duration: 0.2,
-            ease: "easeOut",
-            
-        }
-
-        await innerFrameAnimate(innerFrameScope.current, {
-            opacity: [1, 0],
-        }, options);
-        setImage(newImage);
-        innerFrameAnimate(innerFrameScope.current, {
-            opacity: [0, 1],
-        }, options);
-    }
+    
     const animation = async () => {
         
         
@@ -138,6 +157,7 @@ export default function Home({ pageState }) {
                 borderRadius: [currentBorderRadius , "2vw"],
             }, frameOptions);
         } else {
+            
             await new Promise(resolve => setTimeout(resolve, 500));
             if(pageState == "") {
                 animate(scope.current, {
@@ -160,11 +180,12 @@ export default function Home({ pageState }) {
                 width: [frameScope.current.clientWidth, "25vw"],
                 borderRadius: [currentBorderRadius, "17vw"],
             }, frameOptions);
-            innerFrameAnimate(innerFrameScope.current, {
+            await innerFrameAnimate(innerFrameScope.current, {
                 height: [innerFrameScope.current.clientHeight, "25vw"],
                 width: [innerFrameScope.current.clientWidth, "25vw"],
                 borderRadius: [currentBorderRadius, "17vw"],
             }, frameOptions);
+            handleMouseLeave();
         }
         
         
@@ -176,9 +197,12 @@ export default function Home({ pageState }) {
     return (
         <div className=" fixed ml-[10vw] h-[75%] w-[65vw] flex items-center justify-between ">
             
-            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  bg-blue-100 rounded-full "> 
+            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  rounded-full "> 
                 <AnimatePresence >
-                    <motion.img alt="image" priority key={1} ref={innerFrameScope} src={image.src} layout className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
+                    <motion.div ref={imageContainerScope}>
+                        <motion.img alt="image" priority key={1} ref={innerFrameScope} src={image} layout className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
+                        
+                    </motion.div>
 
                 </AnimatePresence>
 
@@ -218,7 +242,7 @@ export default function Home({ pageState }) {
                         key="projects"
                         variants={staggerContainer2}
                     >
-                        <motion.div variants={fadeFromLeft} onMouseEnter={()=> setNewImage(Trollface)} onMouseLeave={() => setNewImage(jax)} className=" cursor-pointer " >
+                        <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(CE.src)} className=" cursor-pointer " >
                             <Project title="Combat Enchantments" description="Combat Enchantments is a Minecraft Mod that adds various enchantments. Made with Java and the fabric Modloader, Combat Enchantments has garnered over 250k downloads" link="https://www.curseforge.com/minecraft/mc-mods/combat-enchantments"/>
                         </motion.div >
                         <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
@@ -230,7 +254,7 @@ export default function Home({ pageState }) {
                         <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
                             <Project title="Roadcode" description="Roadcode is a vacation planning web app that algorithmically generates a roadtrip with points of interest along the way. Roadcode took 1st place at Freyhacks 2022, out of 500 people" link="https://www.google.com"/>
                         </motion.div>
-                        <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
+                        <motion.div variants={fadeFromLeft}  onMouseEnter={() => handleMouseEnter(AA.src)} className=" cursor-pointer">
                             <Project title="Armor Abilities" description="Armor abilities is another Minecraft Mod I made to add activatable abilities to the game, such as dashes and teleports. Armor Abilities was made for both Fabric and Forge" link="https://www.curseforge.com/minecraft/mc-mods/armor-abilities"/>
                         </motion.div>
                         <motion.div variants={fadeFromLeft}  className=" cursor-pointer">
@@ -286,26 +310,4 @@ export default function Home({ pageState }) {
 
         </div>
     )
-}
-
-
-const Frame = ({pageState, frameScope, innerFrameScope, image}) => {
-    
-    
-    return (
-        <>
-            {/* can prolly deelete this later */}
-            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  bg-blue-100 rounded-full "> 
-                <Image ref={innerFrameScope} src={image} className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
-                <Image ref={innerFrameScope} src={image} className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
-
-            </div>
-            <div className="absolute z-[25] h-[35vw] w-[35vw] translate-y-[-14vw] translate-x-[-4vw] bg-[#F5F5F5]  "></div>
-            {/* <div className="absolute z-[25] h-[40vw] w-[30vw] translate-y-[-4vw] translate-x-[-3.0vw] bg-[#F5F5F5]  rotate-45   "></div> */}
-
-            {/* <div className="absolute z-20 h-[33vw] w-[33vw] translate-x-[-4vw] border-2 border-[#413C34] rounded-full "></div> */}
-            {/* <div className="absolute z-20 h-[28vw] w-[28vw] translate-y-[1.5vw] translate-x-[-1.5vw] border-2 border-[#413C34] rounded-full "></div> */}
-
-        </>
-    );
 }
