@@ -1,14 +1,11 @@
 import { motion, AnimatePresence, stagger, useAnimate } from "framer-motion";
 import jax from "../assets/jax2.jpg";
 import Trollface from "../assets/Trollface.png";
-import linkedin from "../assets/linkedin.png";
-import email from "../assets/email.png";
-import instagram from "../assets/instagram.png";
-import discord from "../assets/discord.png";
-import Image from "next/image";
+
+import NextImage from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Project from "./Project.js";
-import github from "../assets/github.png";
+
 import AA from "../assets/AA.gif";
 import CE from "../assets/CE.gif";
 import DDV from "../assets/DDV.gif";
@@ -17,8 +14,21 @@ import GTReviews from "../assets/GTReviews.png";
 import Roadcode from "../assets/Roadcode.png";
 import Therapal from "../assets/Therapal.jpg";
 import Resume from "../assets/Nicholas_Suh_Resume.pdf";
+import Contact from "./Contact";
+
+import { fadeFromLeft, staggerContainer, staggerContainer2 } from "../utils/anim";
+
 export default function Home({ pageState }) {
 
+    const images = [
+        CE.src,
+        DDV.src,
+        GTReviews.src,
+        ND.src,
+        Roadcode.src,
+        AA.src,
+        Therapal.src,
+    ]
     const [image, setImage] = useState(jax.src);
     const [imageContainerScope, imageContainerAnimate] = useAnimate();
     const [transitioning, setTransitioning] = useState(false);
@@ -28,44 +38,6 @@ export default function Home({ pageState }) {
     const [scope2, animate2] = useAnimate();
     const [frameScope, frameAnimate] = useAnimate();
     const [innerFrameScope, innerFrameAnimate] = useAnimate();
-    
-    const staggerContainer = {
-        hidden: { opacity: 1 },
-        visible: {
-            opacity: 1,
-            transition: {
-                delayChildren: 1.1, // Delay before children start animating
-                staggerChildren: 0.1, // Delay between each child (p tag) animation
-                
-            },
-        },
-        exit: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1, staggerDirection: -1 }, // Reverse the stagger animation
-        }
-    };
-    const staggerContainer2 = {
-        hidden: { opacity: 1 },
-        visible: {
-            opacity: 1,
-            transition: {
-                delayChildren: 0.9, // Delay before children start animating
-                staggerChildren: 0.1, // Delay between each child (p tag) animation
-                
-            },
-        },
-        exit: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1, staggerDirection: -1 }, // Reverse the stagger animation
-        }
-    };
-
-    const fadeFromLeft = {
-        hidden: { opacity: 0, x: -20 },
-        visible: { opacity: 1, x: 0, transition: { duration: 0.5} },
-        exit: { opacity: 0, x: -20, transition: { duration: 0.3} },
-        hover: {transform: "translateX(1vw)", transition: {duration: 0.2}},
-    }
 
     const handleMouseEnter = async (imagesrc) => {
         console.log(imagesrc);
@@ -111,6 +83,10 @@ export default function Home({ pageState }) {
         if (textRef.current) {
             setTextHeight(textRef.current.clientHeight);
         }
+        images.forEach((image) => {
+            const img = new Image();
+            img.src = image;
+        });
     }, []);
     useEffect(() => {
         if (scope.current)
@@ -174,10 +150,10 @@ export default function Home({ pageState }) {
                 }, options);
             } else {
                 animate(scope.current, {
-                    height: [scope.current.clientHeight, "10vw"],
+                    height: [scope.current.clientHeight, "7vw"],
                 }, options);
                 animate2(scope2.current, {
-                    height: [scope2.current.clientHeight, "10vw"],
+                    height: [scope2.current.clientHeight, "7vw"],
                 }, options);
             }
             await new Promise(resolve => setTimeout(resolve, 200));
@@ -271,7 +247,7 @@ export default function Home({ pageState }) {
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(Roadcode.src)} className=" cursor-pointer">
                             <Project title="Roadcode" description="Roadcode is a vacation planning web app that algorithmically generates a roadtrip with points of interest along the way. Roadcode took best overall out of 500 people at Freyhacks, an MLH season 2022 hackathon." 
                             link="https://devpost.com/software/road-code"
-                            dates="June 2022" technologies="Javascript, Node.js, OpenTripMap, Google Maps"
+                            dates="June 2022" technologies="Javascript, Node.js, OpenTripMap, Google Maps" role="Programmer"
                             />
                         </motion.div>
                         <motion.div variants={fadeFromLeft}  onMouseEnter={() => handleMouseEnter(AA.src)} className=" cursor-pointer">
@@ -289,39 +265,7 @@ export default function Home({ pageState }) {
 
                 </AnimatePresence>
                 <AnimatePresence>
-                    {pageState == "Contact" && (<motion.div
-                        className="absolute w-[40vw] h-[13vw]  flex-col items-center "
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit" // Add exit variant here
-                        key="contact"
-                        variants={staggerContainer}>
-
-                        <motion.div variants={fadeFromLeft}>
-                            <h1 className="text-[2.5vw] font-serif"> View my <a href={Resume} className=" underline">resume</a> or contact me at: </h1>
-                        </motion.div >
-                        <motion.div variants={fadeFromLeft}>
-                            <div className="flex items-center space-x-[1vw] ml-[0.3vw]">
-                                <motion.a className="w-[4vw] h-[4vw] opacity-30 cursor-pointer" href="https://github.com/dsfhdshdjtsb"  whileHover={{ opacity: 1 }}> 
-                                    <Image alt="icon" className=" w-[100%] h-[100%] object-cover" src={github}></Image>
-                                </motion.a>
-                                <motion.a className="w-[5vw] h-[5vw] opacity-30 cursor-pointer" href="https://www.linkedin.com/in/nsuh"  whileHover={{ opacity: 1 }}> 
-                                    <Image  alt="icon" className=" w-[100%] h-[100%] object-cover" src={linkedin}></Image>
-                                </motion.a>
-                                <motion.a className="w-[5vw] h-[5vw] opacity-30 cursor-pointer " href="mailto:nicksuh@gatech.edu"  whileHover={{ opacity: 1 }}> 
-                                    <Image  alt="icon" className=" w-[100%] h-[100%] object-cover" src={email}></Image>
-                                </motion.a>
-                                <motion.a className="w-[5vw] h-[5vw] opacity-30 cursor-pointer" href="http://discordapp.com/users/395005138000936960"  whileHover={{ opacity: 1 }}> 
-                                    <Image alt="icon"  className=" w-[100%] h-[100%] object-cover" src={discord}></Image>
-                                </motion.a>
-                                <motion.a className="w-[4.5vw] h-[4.5vw] opacity-30 cursor-pointer" href="https://www.instagram.com/nick_suh/"  whileHover={{ opacity: 1 }}> 
-                                    <Image  alt="icon" className=" w-[100%] h-[100%] object-cover" src={instagram}></Image>
-                                </motion.a>
-                            </div>
-                        </motion.div>
-
-                            
-                        </motion.div>)}
+                    {pageState == "Contact" && (<Contact />)}
                 </AnimatePresence>
 
 
