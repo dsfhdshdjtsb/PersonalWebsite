@@ -175,6 +175,20 @@ export default function Home({ pageState }) {
     }
     
     
+    const imageVariant = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                duration: 0.5,
+            },
+        },
+        exit: {
+            opacity: 0,
+            transition: { duration: 0.5 },
+        }
+
+    }
 
     return (
         <div className=" fixed ml-[10vw] h-[75%] w-[65vw] flex items-center justify-between ">
@@ -182,7 +196,15 @@ export default function Home({ pageState }) {
             <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw] bg-black rounded-full "> 
                 <AnimatePresence >
                     <motion.div ref={imageContainerScope}>
-                        <motion.img alt="image" priority key={1} ref={innerFrameScope} src={image} layout className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
+                        <motion.img alt="image" 
+                        priority 
+                        key={image} 
+                        ref={innerFrameScope} 
+                        src={image} 
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                         layout className=" absolute h-[25vw] w-[25vw]  bg-blue-100 rounded-full object-cover " />
                         
                     </motion.div>
 
@@ -224,7 +246,7 @@ export default function Home({ pageState }) {
                         key="projects"
                         variants={staggerContainer2}
                     >
-                        <motion.div variants={fadeFromLeft} onMouseEnter={() => handleMouseEnter(CE.src)} className=" cursor-pointer " >
+                        <motion.div variants={fadeFromLeft} onMouseEnter={() => setImage(CE.src)} onPointer className=" cursor-pointer " >
                             <Project title="Combat Enchantments" description="Combat Enchantments is a Minecraft Mod that adds various enchantments. Made with Java and the Fabric Modloader, Combat Enchantments has garnered over 250k downloads, and has been featured in various Youtube videos." link="https://www.curseforge.com/minecraft/mc-mods/combat-enchantments"
                             dates="August 2021 - Present" technologies="Java, Gradle, Fabric" role="Creator"
                             />
