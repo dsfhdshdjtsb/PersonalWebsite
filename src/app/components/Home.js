@@ -36,7 +36,7 @@ export default function Home({ pageState }) {
     
 
 
-    const [curImageIndex, setCurImageIndex] = useState(-1);
+    const [curImageIndex, setCurImageIndex] = useState(0);
     const [imageContainerScope, imageContainerAnimate] = useAnimate();
     const [transitioning, setTransitioning] = useState(false);
     
@@ -107,7 +107,11 @@ export default function Home({ pageState }) {
     //     });
     // }
     useEffect(() => {
-        
+        // imageAnimators.current[0][1](imageAnimators.current[0][0].current, {
+        //     opacity: [0, 1],
+        // }, { duration: 0.1, ease: "easeOut", delay: 0 });
+
+        //USE THIS ANIMATION LATER
         if (textRef.current) {
             setTextHeight(textRef.current.clientHeight);
         }
@@ -243,7 +247,7 @@ export default function Home({ pageState }) {
     return (
         <div className=" fixed ml-[10vw] h-[75%] w-[65vw] flex items-center justify-between ">
             
-            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw] bg-black rounded-full "> 
+            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  rounded-full "> 
                 <AnimatePresence >
 
                     {/* <motion.div ref={imageContainerScope}>
@@ -267,7 +271,7 @@ export default function Home({ pageState }) {
                             
                             ref={animator[0]}
                             src={images[index]}
-                            className=" absolute h-[25vw] w-[25vw] opacity-0 bg-blue-100 rounded-full object-cover " 
+                            className={`absolute h-[25vw] w-[25vw]  rounded-full object-cover ${index === 0? 'opacity-100' : 'opacity-0'}`}
                             />
                         );
                     })}
