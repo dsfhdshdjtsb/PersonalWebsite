@@ -346,7 +346,7 @@ export default function Home({ pageState }) {
                             />
                         </motion.div>
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => animateImage(7)} className=" cursor-pointer">
-                            <Project title="Therapal" description="Therapal is an omegle-style web app with AI that links together people who struggle with mental disorders. Powered by GPT-3.5, Therapal took 1st place at Hack United 2023, out of 400 people. " link="https://devpost.com/software/note-drop"
+                            <Project title="Therapal" description="Therapal is an omegle-style web app with AI that links together people who struggle with mental disorders. Powered by GPT-3.5, Therapal took 1st place at Hack United 2023, out of 400 people. " link="https://devpost.com/software/therapal"
                             dates="August 2023" technologies="React, Material UI, GPT-3.5, Firebase, Node.js " role="Programmer"
                             />
                         </motion.div>
