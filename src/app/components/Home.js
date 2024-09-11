@@ -36,7 +36,7 @@ export default function Home({ pageState }) {
     
 
 
-    const [curImageIndex, setCurImageIndex] = useState(0);
+    const [curImageIndex, setCurImageIndex] = useState(-1);
     const [imageContainerScope, imageContainerAnimate] = useAnimate();
     const [transitioning, setTransitioning] = useState(false);
     
