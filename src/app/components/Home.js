@@ -247,7 +247,7 @@ export default function Home({ pageState }) {
     return (
         <div className=" fixed ml-[10vw] h-[75%] w-[65vw] flex items-center justify-between ">
             
-            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw]  rounded-full "> 
+            <div ref={frameScope} className="relative z-30 h-[25vw] w-[25vw] bg-black rounded-full "> 
                 <AnimatePresence >
 
                     {/* <motion.div ref={imageContainerScope}>
