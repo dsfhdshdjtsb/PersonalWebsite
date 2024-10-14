@@ -299,7 +299,7 @@ export default function Home({ pageState }) {
                             am interested in game development, web development,
                         </motion.p>
                         <motion.p variants={fadeFromLeft}>
-                            and digital artistry.
+                            and digital art.
                         </motion.p>
                     </motion.div>)}
                 </AnimatePresence>
@@ -324,9 +324,10 @@ export default function Home({ pageState }) {
                             dates="August 2024 - Present" technologies="Rust, Bevy" role="Programmer, Artist"
                             />
                         </motion.div>
-                        <motion.div variants={fadeFromLeft} onMouseEnter={() => animateImage(3)} className=" cursor-pointer">
-                            <Project title="GT Reviews" description="GT Reviews is a full stack web app that allows Georgia Tech students to review classes, professors, dining halls, and residence halls. GT Reviews was made for GT Web Dev, and features React, Firebase, and a Rust-built web scraper." link="https://buzzwalk.github.io/reviews/"
-                            dates="September - December 2023" technologies="React, Chakra UI, Node.js, Firebase, Rust " role="Project Manager"
+                        
+                        <motion.div variants={fadeFromLeft} onMouseEnter={() => animateImage(7)} className=" cursor-pointer">
+                            <Project title="Therapal" description="Therapal is an omegle-style web app with AI that links together people who struggle with mental disorders. Powered by GPT-3.5, Therapal took 1st place at Hack United 2023, out of 400 people. " link="https://devpost.com/software/therapal"
+                            dates="August 2023" technologies="React, Material UI, GPT-3.5, Firebase, Node.js " role="Programmer"
                             />
                         </motion.div>
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => animateImage(4)} className=" cursor-pointer">
@@ -344,13 +345,12 @@ export default function Home({ pageState }) {
                             <Project title="Armor Abilities" description="Armor abilities is another Minecraft Mod I made to add activatable abilities to the game, including dashes, teleports, and transforming into anvils. Armor Abilities was made for both Fabric and Forge, and has around 10k downloads" link="https://www.curseforge.com/minecraft/mc-mods/armor-abilities"
                             dates="June 2023" technologies="Java, Gradle, Fabric, Forge" role="Creator"
                             />
-                        </motion.div>
-                        <motion.div variants={fadeFromLeft} onMouseEnter={() => animateImage(7)} className=" cursor-pointer">
-                            <Project title="Therapal" description="Therapal is an omegle-style web app with AI that links together people who struggle with mental disorders. Powered by GPT-3.5, Therapal took 1st place at Hack United 2023, out of 400 people. " link="https://devpost.com/software/therapal"
-                            dates="August 2023" technologies="React, Material UI, GPT-3.5, Firebase, Node.js " role="Programmer"
+                        </motion.div> 
+                        <motion.div variants={fadeFromLeft} onMouseEnter={() => animateImage(3)} className=" cursor-pointer">
+                            <Project title="GT Reviews" description="GT Reviews is a full stack web app that allows Georgia Tech students to review classes, professors, dining halls, and residence halls. GT Reviews was made for GT Web Dev, and features React, Firebase, and a Rust-built web scraper." link="https://github.com/buzzwalk/reviews"
+                            dates="September - December 2023" technologies="React, Chakra UI, Node.js, Firebase, Rust " role="Project Manager"
                             />
                         </motion.div>
-                        
                        </motion.div>)}
 
                 </AnimatePresence>
