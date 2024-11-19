@@ -13,7 +13,7 @@ import ND from "../assets/ND.gif";
 import GTReviews from "../assets/GTReviews.png";
 import Roadcode from "../assets/Roadcode.png";
 import Therapal from "../assets/Therapal.jpg";
-import Resume from "../assets/Nicholas_Suh_Resume.pdf";
+import Resume from "../assets/Nicholas Suh Resume.pdf";
 import Contact from "./Contact";
 
 import { fadeFromLeft, staggerContainer, staggerContainer2 } from "../utils/anim";
@@ -67,45 +67,6 @@ export default function Home({ pageState }) {
         }, options);
         setCurImageIndex(index);
     }
-    // const handleMouseEnter = async (imagesrc) => {
-    //     console.log(imagesrc);
-    //     if(imagesrc == image)
-    //         return;
-    //     await imageContainerAnimate(imageContainerScope.current, {
-    //         opacity: [1, 0],
-    //     }, {
-    //         duration: 0.3,
-    //         ease: "easeOut",
-    //         delay: 0,
-    //     });
-    //     await setImage(imagesrc);
-    //     await imageContainerAnimate(imageContainerScope.current, {
-    //         opacity: [0, 1],
-    //     }, {
-    //         duration: 0.3,
-    //         ease: "easeOut",
-    //         delay: 0,
-    //     });
-    // }
-    // const handleMouseLeave = async () => {
-    //     if(image == jax.src)
-    //         return;
-    //     await imageContainerAnimate(imageContainerScope.current, {
-    //         opacity: [1, 0],
-    //     }, {
-    //         duration: 0.3,
-    //         ease: "easeOut",
-    //         delay: 0,
-    //     });
-    //     setImage(jax.src);
-    //     await imageContainerAnimate(imageContainerScope.current, {
-    //         opacity: [0, 1],
-    //     }, {
-    //         duration: 0.3,
-    //         ease: "easeOut",
-    //         delay: 0,
-    //     });
-    // }
     useEffect(() => {
         // imageAnimators.current[0][1](imageAnimators.current[0][0].current, {
         //     opacity: [0, 1],
@@ -148,7 +109,6 @@ export default function Home({ pageState }) {
             currentBorderRadius = frameScope.current.style.borderRadius;
             
         }
-        const currentOpacity = frameScope.current.style.opacity;
         if(pageState == "Projects") {
             animate(scope.current, {
                 height: [scope.current.clientHeight, "30vw"],
@@ -174,6 +134,8 @@ export default function Home({ pageState }) {
                     borderRadius: [currentBorderRadius, "2vw"],
                 }, frameOptions);
             }
+            await new Promise(resolve => setTimeout(resolve, 500));
+            animateImage(1);
 
             // innerFrameAnimate(innerFrameScope.current, {
             //     height: [innerFrameScope.current.clientHeight, "30vw"],

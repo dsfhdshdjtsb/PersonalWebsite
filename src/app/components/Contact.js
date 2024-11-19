@@ -3,7 +3,7 @@ import email from "../assets/email.png";
 import instagram from "../assets/instagram.png";
 import discord from "../assets/discord.png";
 import github from "../assets/github.png";
-import Resume from "../assets/Nicholas_Suh_Resume.pdf";
+import Resume from "../assets/Nicholas Suh Resume.pdf";
 import { motion } from "framer-motion";
 import NextImage from "next/image";
 import { fadeFromLeft, staggerContainer } from "../utils/anim";
