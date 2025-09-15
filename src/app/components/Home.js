@@ -255,7 +255,7 @@ export default function Home({ pageState }) {
                     >
                         {/* Staggered animation for each <p> tag */}
                         <motion.p variants={fadeFromLeft}>
-                            Hi, I'm Nick Suh, a 2nd year CS major at Georgia Tech. I
+                            Hi, I'm Nick Suh, a 3rd year CS major at Georgia Tech. I
                         </motion.p>
                         <motion.p variants={fadeFromLeft}>
                             am interested in game development, web development,
