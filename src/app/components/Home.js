@@ -1,6 +1,5 @@
 import { motion, AnimatePresence, stagger, useAnimate } from "framer-motion";
 import jax from "../assets/jax2.jpg";
-import Trollface from "../assets/Trollface.png";
 
 import NextImage from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -13,7 +12,9 @@ import ND from "../assets/ND.gif";
 import GTReviews from "../assets/GTReviews.png";
 import Roadcode from "../assets/Roadcode.png";
 import Therapal from "../assets/Therapal.jpg";
+import Raytracer from "../assets/raytracer.png";
 import Resume from "../assets/Nicholas Suh Resume.pdf";
+import loldrafttool from "../assets/loldrafttool.png";
 import Contact from "./Contact";
 
 import { fadeFromLeft, staggerContainer, staggerContainer2 } from "../utils/anim";
@@ -29,6 +30,9 @@ export default function Home({ pageState }) {
         Roadcode.src,
         AA.src,
         Therapal.src,
+        loldrafttool.src,
+        Raytracer.src,
+        
     ]
     const imageAnimators = useRef(images.map(() => useAnimate()));
     
@@ -278,12 +282,22 @@ export default function Home({ pageState }) {
                     >
                         <motion.div variants={fadeFromLeft}  onMouseEnter={() => animateImage(1)} onPointer className=" cursor-pointer " >
                             <Project title="Combat Enchantments" description="Combat Enchantments is a Minecraft Mod that adds various enchantments. Made with Java and the Fabric Modloader, Combat Enchantments has garnered over 250k downloads, and has been featured in various Youtube videos." link="https://www.curseforge.com/minecraft/mc-mods/combat-enchantments"
-                            dates="August 2021 - Present" technologies="Java, Gradle, Fabric" role="Creator"
+                            dates="August 2021 - December 2023" technologies="Java, Gradle, Fabric" role="Creator"
+                            />
+                        </motion.div > 
+                        <motion.div variants={fadeFromLeft}  onMouseEnter={() => animateImage(8)} onPointer className=" cursor-pointer " >
+                            <Project title="League of Legends Winrate Predictor" description="Developed as a project for CS 4641, this web app predicts the outcome of League of Legends games based on champion drafts. The dataset was generated using the Riot Games API and AWS, and the models were trained with PyTorch." link="https://loldrafttool.vercel.app/" 
+                            dates="June 2025 - August 2025" technologies="PyTorch, NumPy, React, Tailwind, AWS, SQL" role="Programmer"
+                            />
+                        </motion.div >
+                        <motion.div variants={fadeFromLeft}  onMouseEnter={() => animateImage(9)} onPointer className=" cursor-pointer " >
+                            <Project title="Raytracer" description="A simple, zero-dependency WIP raytracer built from the ground up in C++, currently supporting offline rendering. I made this project to learn more about graphics and GPU programming, and I aim to continue developing it whenever I have the time." link="https://github.com/dsfhdshdjtsb/raytracer" 
+                            dates="July 2025 - August 2025" technologies="C++" role="Programmer"
                             />
                         </motion.div >
                         <motion.div variants={fadeFromLeft}  onMouseEnter={() => animateImage(2)} className=" cursor-pointer">
-                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a platformer with a circular twist. By community vote, DDV placed 8th out of 77 entries, 3rd in game design. DDV was built with Rust and the Bevy game engine, and will (hopefully) be on Steam soon." link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"
-                            dates="August 2024 - Present" technologies="Rust, Bevy" role="Programmer, Artist"
+                            <Project title="Dungeon Deja Vu" description="Made for Bevy Game jam 5, Dungeon Deja Vu is a platformer with a circular twist. By community vote, DDV placed 8th out of 77 entries, 3rd in game design. DDV was built with Rust and the Bevy game engine" link="https://dsfhdshdjtsb.itch.io/dungeon-deja-vu"
+                            dates="July 2024" technologies="Rust, Bevy" role="Programmer, Artist"
                             />
                         </motion.div>
                         
@@ -295,12 +309,6 @@ export default function Home({ pageState }) {
                         <motion.div variants={fadeFromLeft} onMouseEnter={() => animateImage(4)} className=" cursor-pointer">
                             <Project title="Notedrop" description="Notedrop allows users to place pegs and balls on a Pachinko-style board, and listen to the sounds as the balls hit the pegs. Notedrop won Digital Track 1st Place at Horizons 2024, and was built with Rust and Bevy." link="https://devpost.com/software/note-drop"
                             dates="March 2024" technologies="Rust, Bevy" role="Programmer"
-                            />
-                        </motion.div>
-                        <motion.div variants={fadeFromLeft} onMouseEnter={() => animateImage(5)} className=" cursor-pointer">
-                            <Project title="Roadcode" description="Roadcode is a vacation planning web app that algorithmically generates a roadtrip with points of interest along the way. Roadcode took best overall out of 500 people at Freyhacks, an MLH season 2022 hackathon." 
-                            link="https://devpost.com/software/road-code"
-                            dates="June 2022" technologies="Javascript, Node.js, OpenTripMap, Google Maps" role="Programmer"
                             />
                         </motion.div>
                         <motion.div variants={fadeFromLeft}  onMouseEnter={() => animateImage(6)} className=" cursor-pointer">
