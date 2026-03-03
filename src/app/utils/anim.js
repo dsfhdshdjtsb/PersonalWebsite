@@ -28,10 +28,10 @@ const staggerContainer2 = {
 };
 
 const fadeFromLeft = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5} },
-    exit: { opacity: 0, x: -20, transition: {duration: 0.3} },
-    hover: {transform: "translateX(1vw)", transition: {duration: 0.2}},
+    hidden: { opacity: 0, x: "-1.5rem" },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+    exit: { opacity: 0, x: "-1.5rem", transition: { duration: 0.3 } },
+    hover: { x: "1rem", transition: { duration: 0.2 } },
 }
 
 export {staggerContainer, staggerContainer2, fadeFromLeft};

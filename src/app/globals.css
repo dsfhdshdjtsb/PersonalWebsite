@@ -2,14 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
 
-.no-scrollbar::-webkit-scrollbar {
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+html {
+  font-size: 18px; /* Base font size for 1rem */
+  overflow: hidden;
+}
+
+/* Responsive base font size adjustments */
+@media (max-width: 1536px) {
+  html { font-size: 16px; }
+}
+@media (max-width: 1280px) {
+  html { font-size: 14px; }
+}
+@media (max-width: 1024px) {
+  html { font-size: 12px; }
+}
+@media (max-width: 768px) {
+  html { font-size: 10px; }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #F5F5F5;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
