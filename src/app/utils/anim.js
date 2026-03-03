@@ -3,14 +3,13 @@ const staggerContainer = {
     visible: {
         opacity: 1,
         transition: {
-            delayChildren: 1.1, // Delay before children start animating
-            staggerChildren: 0.1, // Delay between each child (p tag) animation
-            
+            delayChildren: 0.5, 
+            staggerChildren: 0.1,
         },
     },
     exit: {
         opacity: 1,
-        transition: { staggerChildren: 0.1, staggerDirection: -1 }, // Reverse the stagger animation
+        transition: { staggerChildren: 0.1, staggerDirection: -1 },
     }
 };
 const staggerContainer2 = {
@@ -18,14 +17,13 @@ const staggerContainer2 = {
     visible: {
         opacity: 1,
         transition: {
-            delayChildren: 1.1, // Delay before children start animating
-            staggerChildren: 0.1, // Delay between each child (p tag) animation
-            
+            delayChildren: 0.5, 
+            staggerChildren: 0.1,
         },
     },
     exit: {
         opacity: 1,
-        transition: { delay: -1.0,staggerChildren: 0.1, staggerDirection: -1 }, // Reverse the stagger animation
+        transition: { staggerChildren: 0.1, staggerDirection: -1 },
     }
 };
 
