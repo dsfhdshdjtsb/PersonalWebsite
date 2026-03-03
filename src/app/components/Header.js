@@ -1,7 +1,7 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const links = [
   { title: "", label: "About", href: "/" },
@@ -25,7 +25,17 @@ const fadeFromLeft = {
 
 export default function Header({ pageState }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const displayTitle = pageState === "" ? "Nick Suh" : pageState;
+  const isProjects = pageState === "Projects";
 
   return (
     <header className="fixed top-[2rem] left-0 right-0 z-50 w-[90%] max-w-[120rem] mx-auto">
@@ -37,7 +47,16 @@ export default function Header({ pageState }) {
               initial="hidden"
               animate="visible"
               exit="exit"
-              variants={fadeFromLeft}
+              variants={{
+                ...fadeFromLeft,
+                visible: { 
+                  ...fadeFromLeft.visible, 
+                  transition: { 
+                    ...fadeFromLeft.visible.transition, 
+                    delay: isMobile ? (isProjects ? 1.0 : 0.6) : 0.4 
+                  } 
+                }
+              }}
               className="font-serif text-[3rem] lg:text-[4.5rem] text-[#413C34] m-0 p-0 leading-none"
             >
               {displayTitle}
@@ -78,18 +97,21 @@ export default function Header({ pageState }) {
         {/* Mobile Hamburger Toggle */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden z-50 flex flex-col justify-center items-center w-[3rem] h-[3rem] space-y-[0.6rem] focus:outline-none"
+          className="lg:hidden z-50 flex flex-col justify-center items-center w-[3rem] h-[3rem] space-y-[0.6rem] focus:outline-none relative"
         >
           <motion.span 
-            animate={isOpen ? { rotate: 45, y: 10 } : { rotate: 0, y: 0 }}
+            animate={isOpen ? { rotate: 45, y: "0.8rem" } : { rotate: 0, y: 0 }}
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
             className="w-full h-[2px] bg-[#413C34] block"
           />
           <motion.span 
             animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
             className="w-full h-[2px] bg-[#413C34] block"
           />
           <motion.span 
-            animate={isOpen ? { rotate: -45, y: -10 } : { rotate: 0, y: 0 }}
+            animate={isOpen ? { rotate: -45, y: "-0.8rem" } : { rotate: 0, y: 0 }}
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
             className="w-full h-[2px] bg-[#413C34] block"
           />
         </button>

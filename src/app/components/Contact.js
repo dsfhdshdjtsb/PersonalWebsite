@@ -5,28 +5,43 @@ import discord from "../assets/discord.png";
 import github from "../assets/github.png";
 import { motion } from "framer-motion";
 import NextImage from "next/image";
-import { fadeFromLeft, staggerContainer } from "../utils/anim";
+import { wordFadeVariant } from "../utils/anim";
 
-export default function Contact() {
+export default function Contact({ isMobile }) {
   const Resume = "/Nicholas_Suh_Resume.pdf";
+  const contactText = "View my resume or contact me at:";
   
-          return (
-              <motion.div
-                  className="w-[35rem] flex flex-col justify-center text-[#413C34]"
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  key="contact"
-                  variants={staggerContainer}
+  return (
+    <div className={`w-full max-w-[35rem] flex flex-col justify-center text-[#413C34] ${isMobile ? 'items-center text-center' : 'items-start text-left'}`}>
+      <div className="mb-[0.3rem] leading-tight text-[1.8rem] font-serif">
+        {contactText.split(" ").map((word, i) => {
+          if (word === "resume") {
+            return (
+              <motion.span 
+                key={i}
+                variants={wordFadeVariant}
+                className="inline-block mr-[0.3em]"
               >
-                  <motion.div variants={fadeFromLeft}>
-                      <h1 className="text-[1.8rem] font-serif mb-[0.5rem] leading-tight">
-                          View my <a href={Resume} className="underline hover:opacity-70 transition-opacity">resume</a> or contact me at:
-                      </h1>
-                  </motion.div >
+                <a href={Resume} className="underline hover:opacity-70 transition-opacity">
+                  {word}
+                </a>
+              </motion.span>
+            );
+          }
+          return (
+            <motion.span
+              key={i}
+              variants={wordFadeVariant}
+              className="inline-block mr-[0.3em]"
+            >
+              {word}
+            </motion.span>
+          );
+        })}
+      </div>
       
-      <motion.div variants={fadeFromLeft}>
-        <div className="flex items-center space-x-[1rem]">
+      <motion.div variants={wordFadeVariant} className="mt-[0.3rem]">
+        <div className={`flex items-center space-x-[1rem] ${isMobile ? 'justify-center' : 'justify-start'}`}>
           <SocialIcon href="https://github.com/dsfhdshdjtsb" src={github} alt="GitHub" size="2.5rem" />
           <SocialIcon href="https://www.linkedin.com/in/nsuh" src={linkedin} alt="LinkedIn" size="3.2rem" />
           <SocialIcon href="mailto:nicksuh@gatech.edu" src={email} alt="Email" size="3.2rem" />
@@ -34,7 +49,7 @@ export default function Contact() {
           <SocialIcon href="https://www.instagram.com/nick_suh/" src={instagram} alt="Instagram" size="2.8rem" />
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 
