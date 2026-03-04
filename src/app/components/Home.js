@@ -158,19 +158,25 @@ export default function Home({ pageState }) {
                             borderRadius: { ...FRAME_TRANSITION, delay: isMobile ? (isFirstMount ? 0.2 : 0.45) : (isProjects ? 0.7 : 1.2) }
                         }}
                     >
-                        {IMAGES.map((src, index) => (
-                            <motion.img
-                                key={index}
-                                alt={`Project preview ${index}`}
-                                src={src}
-                                initial={false}
-                                animate={{
-                                    opacity: index === curImageIndex ? 1 : 0,
-                                }}
-                                transition={BASE_TRANSITION}
-                                className="absolute inset-0 h-full w-full object-cover"
-                            />
-                        ))}
+                        {IMAGES.map((src, index) => {
+                            // On mobile, only render the first image (profile pic) and skip all project previews
+                            // to prevent them from loading/downloading.
+                            if (isMobile && index !== 0) return null;
+
+                            return (
+                                <motion.img
+                                    key={index}
+                                    alt={`Project preview ${index}`}
+                                    src={src}
+                                    initial={false}
+                                    animate={{
+                                        opacity: index === curImageIndex ? 1 : 0,
+                                    }}
+                                    transition={BASE_TRANSITION}
+                                    className="absolute inset-0 h-full w-full object-cover"
+                                />
+                            );
+                        })}
                     </motion.div>
                 </div>
 
