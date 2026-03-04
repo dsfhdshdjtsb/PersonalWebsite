@@ -48,6 +48,7 @@ const FRAME_TRANSITION = { duration: 0.5, ease: "easeInOut" };
  */
 
 export default function Home({ pageState }) {
+    const [hasHydrated, setHasHydrated] = useState(false);
     const [curImageIndex, setCurImageIndex] = useState(0);
     const [isFirstMount, setIsFirstMount] = useState(true);
     const [measuredHeight, setMeasuredHeight] = useState(0);
@@ -68,6 +69,7 @@ export default function Home({ pageState }) {
 
     useEffect(() => {
         setIsFirstMount(false);
+        setHasHydrated(true);
         const checkMobile = () => setIsMobile(window.innerWidth < 1024);
         checkMobile();
         window.addEventListener('resize', checkMobile);
@@ -159,9 +161,9 @@ export default function Home({ pageState }) {
                         }}
                     >
                         {IMAGES.map((src, index) => {
-                            // On mobile, only render the first image (profile pic) and skip all project previews
-                            // to prevent them from loading/downloading.
-                            if (isMobile && index !== 0) return null;
+                            // index 0 is the profile image which should ALWAYS be rendered to prevent flickering.
+                            // For all other project preview images/gifs, only render if we've hydrated AND we've confirmed it's not mobile.
+                            if (index !== 0 && (!hasHydrated || isMobile)) return null;
 
                             return (
                                 <motion.img
