@@ -64,7 +64,7 @@ export default function Home({ pageState }) {
 
     // Dynamic line height/width logic
     const desktopLineHeight = isProjects ? "30rem" : (measuredHeight > 0 ? `${measuredHeight}px` : "7rem");
-    const mobileLineWidth = isProjects ? "85vw" : (measuredWidth > 0 ? `${measuredWidth}px` : "20rem");
+    const mobileLineWidth = isProjects ? "85vw" : ("20rem");
 
     useEffect(() => {
         setIsFirstMount(false);
@@ -124,7 +124,7 @@ export default function Home({ pageState }) {
         }
     };
 
-    const aboutText = "Hi, I'm Nick Suh, a 3rd year CS major at Georgia Tech. I am interested in game development, web development, and digital art.";
+    const aboutText = "Hi, I'm Nick, a 3rd year at Georgia Tech studying computer science. I am broadly interested in distributed systems, web dev, and game dev.";
 
     return (
         <div className="fixed inset-0 pointer-events-none flex flex-col items-center justify-center pt-[2rem]">
@@ -153,9 +153,9 @@ export default function Home({ pageState }) {
                                 ease: "easeInOut", 
                                 delay: isFirstMount ? 0.2 : (isMobile ? (isProjects ? 0.7 : 1.6) : (isProjects ? 0.7 : 1.2)) 
                             },
-                            height: { ...FRAME_TRANSITION, delay: isMobile ? 0.45 : (isProjects ? 0.7 : 1.2) },
-                            width: { ...FRAME_TRANSITION, delay: isMobile ? 0.45 : (isProjects ? 0.7 : 1.2) },
-                            borderRadius: { ...FRAME_TRANSITION, delay: isMobile ? 0.45 : (isProjects ? 0.7 : 1.2) }
+                            height: { ...FRAME_TRANSITION, delay: isMobile ? (isFirstMount ? 0.2 : 0.45) : (isProjects ? 0.7 : 1.2) },
+                            width: { ...FRAME_TRANSITION, delay: isMobile ? (isFirstMount ? 0.2 : 0.45) : (isProjects ? 0.7 : 1.2) },
+                            borderRadius: { ...FRAME_TRANSITION, delay: isMobile ? (isFirstMount ? 0.2 : 0.45) : (isProjects ? 0.7 : 1.2) }
                         }}
                     >
                         {IMAGES.map((src, index) => (
@@ -178,7 +178,7 @@ export default function Home({ pageState }) {
                 <motion.div 
                     className={`flex flex-col lg:flex-row items-center flex-shrink-0 z-20 bg-[#F5F5F5]
                         ${isMobile ? 'absolute left-0 right-0 top-[20rem] min-h-[100vh] overflow-hidden' : 'relative w-[44rem] h-[30rem]'}`}
-                    animate={isMobile ? { y: isProjects ? "-22rem" : "0rem" } : { y: 0 }}
+                    animate={isMobile ? { y: isProjects ? "calc(-28rem)" : "0rem" } : { y: 0 }}
                     transition={{ 
                         duration: 0.6, 
                         ease: "easeInOut", 
@@ -192,26 +192,27 @@ export default function Home({ pageState }) {
                         className={`absolute border-[#413C34] z-20 ${isMobile ? 'border-b-2 top-0 left-1/2 -translate-x-1/2' : 'border-r-2 left-0 top-1/2 -translate-y-1/2'}`}
                         style={{ transformOrigin: "center" }}
                         initial={isFirstMount ? { 
-                            opacity: 0, 
-                            height: isMobile ? "0rem" : desktopLineHeight,
-                            width: isMobile ? mobileLineWidth : "0rem"
-                        } : false}
+                             opacity: 0, 
+                             height: "0rem",
+                             width: "0rem"
+                         } : false}
                         animate={{ 
                             opacity: 1, 
                             height: isMobile ? "0rem" : desktopLineHeight,
                             width: isMobile ? mobileLineWidth : "0rem"
+                            //width: "20rem"
                         }}
                         transition={{
-                            opacity: { duration: 0.3, delay: 0 },
+                            opacity: { duration: 0.3, delay: isFirstMount && isMobile ? 0.6 : 0 },
                             height: {
                                 duration: isMobile ? 0.6 : 0.3,
                                 ease: "easeInOut",
-                                delay: isFirstMount ? 0 : (isMobile ? (isProjects ? 1.0 : 1.0) : (isProjects ? 0.5 : 1.0))
+                                delay: isFirstMount ? (isMobile ? 0.6 : 0) : (isMobile ? (isProjects ? 1.0 : 1.0) : (isProjects ? 0.5 : 1.0))
                             },
                             width: {
                                 duration: isMobile ? 0.6 : 0.3,
                                 ease: "easeInOut",
-                                delay: isFirstMount ? 0 : (isMobile ? (isProjects ? 1.0 : 1.0) : (isProjects ? 0.5 : 1.0))
+                                delay: isFirstMount ? (isMobile ? 0.6 : 0) : (isMobile ? (isProjects ? 1.0 : 1.0) : (isProjects ? 0.5 : 1.0))
                             }
                         }}
                     />
@@ -229,7 +230,7 @@ export default function Home({ pageState }) {
                                     exit="exit"
                                     variants={isMobile ? {
                                         ...wordStaggerContainer,
-                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 1.0 } }
+                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 1.3 } }
                                     } : wordStaggerContainer}
                                 >
                                     <p className="leading-relaxed">
