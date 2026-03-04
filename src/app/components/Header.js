@@ -26,6 +26,7 @@ const fadeFromLeft = {
 export default function Header({ pageState }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState(null);
   
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -75,18 +76,24 @@ export default function Header({ pageState }) {
         {/* Desktop Nav */}
         <nav className="hidden lg:flex w-fit space-x-[2rem] text-[1.4rem] text-[#413C34]">
           {links.map(({ title, label, href }) => (
-            <div key={title || "home"} className="flex flex-col items-center">
+            <div 
+              key={title || "home"} 
+              className="flex flex-col items-center"
+              onMouseEnter={() => setHoveredLink(title)}
+              onMouseLeave={() => setHoveredLink(null)}
+            >
               <Link
                 href={href}
-                className="font-serif cursor-pointer border-none bg-transparent p-0 text-inherit focus:outline-none hover:opacity-70 transition-opacity"
+                className="font-serif cursor-pointer border-none bg-transparent p-0 text-inherit focus:outline-none"
               >
                 {label}
               </Link>
               <div className="h-[2px] w-full mt-[0.2rem]">
-                {title === pageState && (
+                {(hoveredLink === title || (hoveredLink === null && title === pageState)) && (
                   <motion.div
                     layoutId="underline"
                     className="h-full bg-[#413C34]"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
               </div>

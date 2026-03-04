@@ -233,7 +233,7 @@ export default function Home({ pageState }) {
                                         visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 0.45 } }
                                     } : {
                                         ...wordStaggerContainer,
-                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 1.1 } }
+                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 0.45 } }
                                     }}
                                 >
                                     <p className="leading-relaxed">
@@ -287,7 +287,7 @@ export default function Home({ pageState }) {
                                     exit="exit"
                                     variants={isMobile ? {
                                         ...wordStaggerContainer,
-                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 0.45 } }
+                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 0.30 } }
                                     } : wordStaggerContainer}
                                     className={`text-[#413C34] flex flex-col justify-center items-center lg:items-start w-full`}
                                 >
