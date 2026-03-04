@@ -231,7 +231,10 @@ export default function Home({ pageState }) {
                                     variants={isMobile ? {
                                         ...wordStaggerContainer,
                                         visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 0.45 } }
-                                    } : wordStaggerContainer}
+                                    } : {
+                                        ...wordStaggerContainer,
+                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 1.1 } }
+                                    }}
                                 >
                                     <p className="leading-relaxed">
                                         {aboutText.split(" ").map((word, i) => (
