@@ -99,9 +99,9 @@ export default function Home({ pageState }) {
                 timer = setTimeout(() => setCurImageIndex(1), 700);
             }
         } else {
-            // Mobile exit path: projects exit (1.0s), then bar moves down (1.0s-1.6s)
-            // Image should swap and appear exactly when bar finished moving down (at 1.6s)
-            timer = setTimeout(() => setCurImageIndex(0), isMobile ? 1600 : 1100);
+            // Mobile exit path: projects exit (0.5s), then bar moves down (0.5s-1.1s)
+            // Image should swap and appear exactly when bar finished moving down (at 1.0s)
+            timer = setTimeout(() => setCurImageIndex(0), isMobile ? 1000 : 1100);
         }
         return () => clearTimeout(timer);
     }, [pageState, isMobile]);
@@ -230,7 +230,7 @@ export default function Home({ pageState }) {
                                     exit="exit"
                                     variants={isMobile ? {
                                         ...wordStaggerContainer,
-                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 1.3 } }
+                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 0.45 } }
                                     } : wordStaggerContainer}
                                 >
                                     <p className="leading-relaxed">
@@ -257,7 +257,7 @@ export default function Home({ pageState }) {
                                     exit="exit"
                                     variants={isMobile ? {
                                         ...staggerContainer2,
-                                        visible: { ...staggerContainer2.visible, transition: { ...staggerContainer2.visible.transition, delayChildren: 1.1 } }
+                                        visible: { ...staggerContainer2.visible, transition: { ...staggerContainer2.visible.transition, delayChildren: 0.8 } }
                                     } : staggerContainer2}
                                 >
                                     <div className={`w-full flex flex-col items-start`}>
@@ -284,7 +284,7 @@ export default function Home({ pageState }) {
                                     exit="exit"
                                     variants={isMobile ? {
                                         ...wordStaggerContainer,
-                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 1.0 } }
+                                        visible: { ...wordStaggerContainer.visible, transition: { ...wordStaggerContainer.visible.transition, delayChildren: 0.45 } }
                                     } : wordStaggerContainer}
                                     className={`text-[#413C34] flex flex-col justify-center items-center lg:items-start w-full`}
                                 >
